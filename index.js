@@ -4,7 +4,9 @@ const ufService = require('./service/ufService');
 const app = express();
 
 app.get('/ufs', (req, res) => {
-    res.json(ufService.findAll());
+    const name = req.query.name;
+    const ufs = name ? ufService.findByName(name) : ufService.findAll();
+    ufs.length > 0 ? res.json(ufs) : res.status(404).json({message: "No UF found"});
 });
 
 app.get('/ufs/:id', (req, res) => {
