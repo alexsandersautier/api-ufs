@@ -1,16 +1,20 @@
 const express = require('express');
-const collectionUfs = require('./data/ufs');
+const ufService = require('./service/ufService');
 
 const app = express();
 
 app.get('/ufs', (req, res) => {
-    res.json(collectionUfs.colecaoUf);
+    res.json(ufService.getData());
 });
 
 app.get('/ufs/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const uf = collectionUfs.colecaoUf.find(uf => uf.id === id);
-    res.json(uf);
+    let uf;
+
+    if (ufService.validateUf(id)) {
+        uf = ufService.getData().find(uf => uf.id === id);
+    }
+    uf ? res.json(uf) : res.status(404).json({message: "Uf not found"});
 });
 
 app.listen(8080, () => {
