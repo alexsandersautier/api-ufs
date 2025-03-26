@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server');
+const app = require('../index');
 
 describe("API endpoints", () =>{
     it("should return all ufs - findAll", async () => {

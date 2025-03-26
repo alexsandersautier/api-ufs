@@ -22,7 +22,11 @@ app.get('/ufs/:id', (req, res) => {
     uf ? res.json(uf) : res.status(404).json({message: message});
 });
 
-app.listen(8080, () => {
-    const data = new Date();
-    console.log(`Server started at ${data}`);
-});
+if (require.main === module) {
+    const PORT = 3000;
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
