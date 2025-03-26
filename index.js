@@ -4,7 +4,7 @@ const ufService = require('./service/ufService');
 const app = express();
 
 app.get('/ufs', (req, res) => {
-    res.json(ufService.getData());
+    res.json(ufService.findAll());
 });
 
 app.get('/ufs/:id', (req, res) => {
@@ -13,7 +13,7 @@ app.get('/ufs/:id', (req, res) => {
     let message = "Uf not found";
 
     if (ufService.validateUf(id)) {
-        uf = ufService.getData().find(uf => uf.id === id);
+        uf = ufService.findById(id);
     } else {
         message = 'Invalid params';
     }
